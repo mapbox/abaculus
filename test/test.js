@@ -73,9 +73,9 @@ describe('create list of tile coordinates', function(){
     var center =  {x: x, y: y, w: 1824, h: 1832 };
 
     var expectedCoords = {
-        tiles: [{ z: 5, x: 15, y: 15, px: -112, py: -108 },
-                { z: 5, x: 15, y: 16, px: -112, py: 916 },
-                { z: 5, x: 16, y: 15, px: 912, py: -108 },
+        tiles: [{ z: 5, x: 15, y: 15, px: -1136, py: -1132 },
+                { z: 5, x: 15, y: 16, px: -1136, py: 916 },
+                { z: 5, x: 16, y: 15, px: 912, py: -1132 },
                 { z: 5, x: 16, y: 16, px: 912, py: 916 } ],
         dimensions: { x: 1824, y: 1832 },
         center: { row: 16, column: 16, zoom: 5 },
@@ -91,10 +91,10 @@ describe('create list of tile coordinates', function(){
 describe('stitch tiles into single png', function(){
     var expectedCoords = {
         tiles: [ { z: 1, x: 0, y: 0, px: 0, py: 0 },
-                 { z: 1, x: 0, y: 1, px: 0, py: 256 },
-                 { z: 1, x: 1, y: 0, px: 256, py: 0 },
-                 { z: 1, x: 1, y: 1, px: 256, py: 256 }],
-            dimensions: { x: 512, y: 512 },
+                 { z: 1, x: 0, y: 1, px: 0, py: 512 },
+                 { z: 1, x: 1, y: 0, px: 512, py: 0 },
+                 { z: 1, x: 1, y: 1, px: 512, py: 512 }],
+            dimensions: { x: 1024, y: 1024 },
             center: { row: 1, column: 1, zoom: 1 },
             scale: 2
         };
@@ -105,6 +105,7 @@ describe('stitch tiles into single png', function(){
             done();
         });
     });
+
     it('should return tiles and stitch them together', function(done){
         printer.stitchTiles(expectedCoords, format, quality, getTileTest, function(err, image, header){
             var actual = new mapnik.Image.fromBytes(image);
