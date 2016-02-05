@@ -1,5 +1,5 @@
 var sm = new (require('sphericalmercator'));
-var queue = require('queue-async');
+var queue = require('d3-queue').queue;
 var blend = require('mapnik').blend;
 var crypto = require('crypto');
 
