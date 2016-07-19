@@ -35,7 +35,7 @@ function abaculus(arg, callback) {
 }
 
 abaculus.coordsFromBbox = function(z, s, bbox, limit, tileSize) {
-    var sm = new SphericalMercator({ size: tileSize * s });
+    var sm = new SphericalMercator({ size: (tileSize || 256) * s });
     var topRight = sm.px([bbox[2], bbox[3]], z),
         bottomLeft = sm.px([bbox[0], bbox[1]], z);
     var center = {};
@@ -55,7 +55,7 @@ abaculus.coordsFromBbox = function(z, s, bbox, limit, tileSize) {
 };
 
 abaculus.coordsFromCenter = function(z, s, center, limit, tileSize) {
-    var sm = new SphericalMercator({ size: tileSize * s });
+    var sm = new SphericalMercator({ size: (tileSize || 256) * s });
     var origin = sm.px([center.x, center.y], z);
     center.x = origin[0];
     center.y = origin[1];
