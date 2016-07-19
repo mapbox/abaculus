@@ -47,8 +47,8 @@ abaculus.coordsFromBbox = function(z, s, bbox, limit, tileSize) {
     var origin = [topRight[0] - center.w / 2, topRight[1] + center.h / 2];
     center.x = origin[0];
     center.y = origin[1];
-    center.w = Math.round(center.w * s);
-    center.h = Math.round(center.h * s);
+    center.w = Math.round(center.w);
+    center.h = Math.round(center.h);
 
     if (center.w >= limit || center.h >= limit) throw new Error('Desired image is too large.');
     return center;

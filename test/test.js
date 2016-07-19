@@ -11,7 +11,8 @@ var zoom = 5,
     y = 4096,
     quality = 256,
     format = 'png',
-    limit = 19008;
+    limit = 19008,
+    tileSize = 256;
 
 
 // fixtures
@@ -26,7 +27,7 @@ describe('Get center from bbox', function() {
         var bbox = [0, 0, 0, 0];
 
         assert.throws( function() {
-            printer.coordsFromBbox(zoom, scale, bbox, limit);
+            printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);
         }, /Incorrect coordinates/);
         done();
     });
@@ -34,18 +35,18 @@ describe('Get center from bbox', function() {
         var bbox = [-60, -60, 60, 60];
 
         assert.throws( function() {
-            printer.coordsFromBbox(7, 2, bbox, limit);
+            printer.coordsFromBbox(7, 2, bbox, limit, tileSize);
         }, /Desired image is too large./);
         done();
     });
     it('should return the correct coordinates', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        var center = printer.coordsFromBbox(zoom, scale, bbox, limit);
-        assert.deepEqual(center.w, 10920);
+        var center = printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);console.log(center)
+        assert.deepEqual(center.w, 10922);
         assert.deepEqual(center.h, 13736);
-        assert.deepEqual(center.x, x);
-        assert.deepEqual(center.y, y);
+        assert.deepEqual(center.x, 16384);
+        assert.deepEqual(center.y, 16384);
         done();
     });
 });
@@ -59,7 +60,7 @@ describe('get coordinates from center', function() {
             h: 4752
         };
         assert.throws( function() {
-            printer.coordsFromCenter(zoom, scale, center, limit);
+            printer.coordsFromCenter(zoom, scale, center, limit, tileSize);
         }, /Desired image is too large./);
         done();
     });
@@ -70,9 +71,9 @@ describe('get coordinates from center', function() {
             w: 800,
             h: 800
         };
-        center = printer.coordsFromCenter(zoom, scale, center, limit);
-        assert.equal(center.x, x);
-        assert.equal(center.y, 3631);
+        var center2 = printer.coordsFromCenter(zoom, scale, center, limit, tileSize);
+        assert.equal(center2.x, 16384);
+        assert.equal(center2.y, 14525);
         done();
     });
 });
