@@ -42,7 +42,7 @@ describe('Get center from bbox', function() {
     it('should return the correct coordinates', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        var center = printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);console.log(center)
+        var center = printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);
         assert.deepEqual(center.w, 10922);
         assert.deepEqual(center.h, 13736);
         assert.deepEqual(center.x, 16384);
