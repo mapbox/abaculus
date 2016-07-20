@@ -83,13 +83,13 @@ describe('create list of tile coordinates', function() {
 
     var expectedCoords = {
         tiles: [
-            { z: 5, x: 15, y: 15, px: -112, py: -108 },
-            { z: 5, x: 15, y: 16, px: -112, py: 916 },
-            { z: 5, x: 16, y: 15, px: 912, py: -108 },
-            { z: 5, x: 16, y: 16, px: 912, py: 916 }
+            { z: 5, x: 3, y: 3, px: -112, py: -108 },
+            { z: 5, x: 3, y: 4, px: -112, py: 916 },
+            { z: 5, x: 4, y: 3, px: 912, py: -108 },
+            { z: 5, x: 4, y: 4, px: 912, py: 916 }
         ],
         dimensions: { x: 1824, y: 1832 },
-        center: { row: 16, column: 16, zoom: 5 },
+        center: { row: 4, column: 4, zoom: 5 },
         scale: 4
     };
     it('should return a tiles object with correct coords', function(done) {
