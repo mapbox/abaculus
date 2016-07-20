@@ -131,7 +131,10 @@ abaculus.tileList = function(z, s, center, tileSize) {
                 Math.pow(2,c.zoom) + c.column :
                 c.column % Math.pow(2,c.zoom);
 
-            if (c.row < 0) continue;
+            c.row = c.row < 0 ?
+                Math.pow(2, c.zoom) + c.row :
+                c.row % Math.pow(2, c.zoom);
+
             coords.tiles.push({
                 z: c.zoom,
                 x: c.column,
