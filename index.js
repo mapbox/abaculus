@@ -112,7 +112,7 @@ abaculus.tileList = function(z, s, center, tileSize) {
     }
 
     var tl = floorObj(pointCoordinate({x: 0, y:0}));
-    var br = floorObj(pointCoordinate(dimensions));
+    var br = floorObj(pointCoordinate({ x: dimensions.x - 1, y: dimensions.y - 1 }));
     var coords = {};
     coords.tiles = [];
     var tileCount = (br.column - tl.column + 1) * (br.row - tl.row + 1);
