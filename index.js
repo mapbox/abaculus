@@ -6,7 +6,7 @@ var crypto = require('crypto');
 module.exports = abaculus;
 
 function abaculus(arg, callback) {
-    var z = arg.zoom || 1,
+    var z = arg.zoom || 0,
         s = arg.scale || 1,
         center = arg.center || null,
         bbox = arg.bbox || null,
