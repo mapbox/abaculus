@@ -26,23 +26,23 @@ describe('Get center from bbox', function() {
     it('should fail if (x1, y1) and (x2,y2) are equal', function(done) {
         var bbox = [0, 0, 0, 0];
 
-        assert.throws( function() {
-            printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);
-        }, /Incorrect coordinates/);
+        var center = printer.coordsFromBbox(zoom, scale, bbox, tileSize);
+        assert(center.w <= 0 || center.h <= 0, 'Incorrect coordinates')
+
         done();
     });
     it('should fail if the image is too large', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        assert.throws( function() {
-            printer.coordsFromBbox(7, 2, bbox, limit, tileSize);
-        }, /Desired image is too large./);
+        var center = printer.coordsFromBbox(7, 2, bbox, tileSize);
+        assert(center.w >= limit || center.h >= limit, 'Desired image is too large')
+
         done();
     });
     it('should return the correct coordinates', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        var center = printer.coordsFromBbox(zoom, scale, bbox, limit, tileSize);
+        var center = printer.coordsFromBbox(zoom, scale, bbox, tileSize);
         assert.deepEqual(center.w, 10922);
         assert.deepEqual(center.h, 13736);
         assert.deepEqual(center.x, 16384);
@@ -59,9 +59,10 @@ describe('get coordinates from center', function() {
             w: 4752,
             h: 4752
         };
-        assert.throws( function() {
-            printer.coordsFromCenter(zoom, scale, center, limit, tileSize);
-        }, /Desired image is too large./);
+
+        var center = printer.coordsFromCenter(zoom, scale, center, tileSize);
+        assert(center.w >= limit || center.h >= limit, 'Desired image is too large')
+
         done();
     });
     it('should return correct origin coords', function(done) {
@@ -71,7 +72,7 @@ describe('get coordinates from center', function() {
             w: 800,
             h: 800
         };
-        var center2 = printer.coordsFromCenter(zoom, scale, center, limit, tileSize);
+        var center2 = printer.coordsFromCenter(zoom, scale, center, tileSize);
         assert.equal(center2.x, 16384);
         assert.equal(center2.y, 14525);
         done();

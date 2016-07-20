@@ -20,13 +20,17 @@ function abaculus(arg, callback) {
 
     if (center) {
         // get center coordinates in px from lng,lat
-        center = abaculus.coordsFromCenter(z, s, center, limit, tileSize);
+        center = abaculus.coordsFromCenter(z, s, center, tileSize);
     } else if (bbox) {
         // get center coordinates in px from [w,s,e,n] bbox
-        center = abaculus.coordsFromBbox(z, s, bbox, limit, tileSize);
+        center = abaculus.coordsFromBbox(z, s, bbox, tileSize);
     } else {
         return callback(new Error('No coordinates provided.'));
     }
+
+    if (center.w <= 0 || center.h <= 0) return callback(new Error('Incorrect coordinates'));
+    if (center.w >= limit || center.h >= limit) return callback(new Error('Desired image is too large.'));
+
     // generate list of tile coordinates center
     var coords = abaculus.tileList(z, s, center, tileSize);
 
@@ -34,7 +38,7 @@ function abaculus(arg, callback) {
     abaculus.stitchTiles(coords, format, quality, getTile, callback);
 }
 
-abaculus.coordsFromBbox = function(z, s, bbox, limit, tileSize) {
+abaculus.coordsFromBbox = function(z, s, bbox, tileSize) {
     var sm = new SphericalMercator({ size: (tileSize || 256) * s });
     var topRight = sm.px([bbox[2], bbox[3]], z),
         bottomLeft = sm.px([bbox[0], bbox[1]], z);
@@ -42,19 +46,16 @@ abaculus.coordsFromBbox = function(z, s, bbox, limit, tileSize) {
     center.w = topRight[0] - bottomLeft[0];
     center.h = bottomLeft[1] - topRight[1];
 
-    if (center.w <= 0 || center.h <= 0) throw new Error('Incorrect coordinates');
-
     var origin = [topRight[0] - center.w / 2, topRight[1] + center.h / 2];
     center.x = origin[0];
     center.y = origin[1];
     center.w = Math.round(center.w);
     center.h = Math.round(center.h);
 
-    if (center.w >= limit || center.h >= limit) throw new Error('Desired image is too large.');
     return center;
 };
 
-abaculus.coordsFromCenter = function(z, s, center, limit, tileSize) {
+abaculus.coordsFromCenter = function(z, s, center, tileSize) {
     var sm = new SphericalMercator({ size: (tileSize || 256) * s });
     var origin = sm.px([center.x, center.y], z);
     center.x = origin[0];
@@ -62,7 +63,6 @@ abaculus.coordsFromCenter = function(z, s, center, limit, tileSize) {
     center.w = Math.round(center.w * s);
     center.h = Math.round(center.h * s);
 
-    if (center.w >= limit || center.h >= limit) throw new Error('Desired image is too large.');
     return center;
 };
 
