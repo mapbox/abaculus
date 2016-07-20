@@ -16,7 +16,7 @@ function abaculus(arg, callback) {
         limit = arg.limit || 19008,
         tileSize = arg.tileSize || 256;
 
-    if (!getTile) return callback(new Error('Invalid function for getting tiles'));
+    if (!getTile) return callback(new Error('Invalid function for getting tiles.'));
 
     if (center) {
         // get center coordinates in px from lng,lat
@@ -28,7 +28,7 @@ function abaculus(arg, callback) {
         return callback(new Error('No coordinates provided.'));
     }
 
-    if (center.w <= 0 || center.h <= 0) return callback(new Error('Incorrect coordinates'));
+    if (center.w <= 0 || center.h <= 0) return callback(new Error('Incorrect coordinates.'));
     if (center.w >= limit || center.h >= limit) return callback(new Error('Desired image is too large.'));
 
     // generate list of tile coordinates center
