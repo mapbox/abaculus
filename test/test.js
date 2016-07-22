@@ -11,7 +11,8 @@ var zoom = 5,
     y = 4096,
     quality = 256,
     format = 'png',
-    limit = 19008;
+    limit = 19008,
+    tileSize = 256;
 
 
 // fixtures
@@ -25,27 +26,27 @@ describe('Get center from bbox', function() {
     it('should fail if (x1, y1) and (x2,y2) are equal', function(done) {
         var bbox = [0, 0, 0, 0];
 
-        assert.throws( function() {
-            printer.coordsFromBbox(zoom, scale, bbox, limit);
-        }, /Incorrect coordinates/);
+        var center = printer.coordsFromBbox(zoom, scale, bbox, tileSize);
+        assert(center.w <= 0 || center.h <= 0, 'Incorrect coordinates')
+
         done();
     });
     it('should fail if the image is too large', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        assert.throws( function() {
-            printer.coordsFromBbox(7, 2, bbox, limit);
-        }, /Desired image is too large./);
+        var center = printer.coordsFromBbox(7, 2, bbox, tileSize);
+        assert(center.w >= limit || center.h >= limit, 'Desired image is too large')
+
         done();
     });
     it('should return the correct coordinates', function(done) {
         var bbox = [-60, -60, 60, 60];
 
-        var center = printer.coordsFromBbox(zoom, scale, bbox, limit);
-        assert.deepEqual(center.w, 10920);
+        var center = printer.coordsFromBbox(zoom, scale, bbox, tileSize);
+        assert.deepEqual(center.w, 10922);
         assert.deepEqual(center.h, 13736);
-        assert.deepEqual(center.x, x);
-        assert.deepEqual(center.y, y);
+        assert.deepEqual(center.x, 16384);
+        assert.deepEqual(center.y, 16384);
         done();
     });
 });
@@ -58,9 +59,10 @@ describe('get coordinates from center', function() {
             w: 4752,
             h: 4752
         };
-        assert.throws( function() {
-            printer.coordsFromCenter(zoom, scale, center, limit);
-        }, /Desired image is too large./);
+
+        var center = printer.coordsFromCenter(zoom, scale, center, tileSize);
+        assert(center.w >= limit || center.h >= limit, 'Desired image is too large')
+
         done();
     });
     it('should return correct origin coords', function(done) {
@@ -70,9 +72,9 @@ describe('get coordinates from center', function() {
             w: 800,
             h: 800
         };
-        center = printer.coordsFromCenter(zoom, scale, center, limit);
-        assert.equal(center.x, x);
-        assert.equal(center.y, 3631);
+        var center2 = printer.coordsFromCenter(zoom, scale, center, tileSize);
+        assert.equal(center2.x, 16384);
+        assert.equal(center2.y, 14525);
         done();
     });
 });
@@ -82,13 +84,13 @@ describe('create list of tile coordinates', function() {
 
     var expectedCoords = {
         tiles: [
-            { z: 5, x: 15, y: 15, px: -112, py: -108 },
-            { z: 5, x: 15, y: 16, px: -112, py: 916 },
-            { z: 5, x: 16, y: 15, px: 912, py: -108 },
-            { z: 5, x: 16, y: 16, px: 912, py: 916 }
+            { z: 5, x: 3, y: 3, px: -112, py: -108 },
+            { z: 5, x: 3, y: 4, px: -112, py: 916 },
+            { z: 5, x: 4, y: 3, px: 912, py: -108 },
+            { z: 5, x: 4, y: 4, px: 912, py: 916 }
         ],
         dimensions: { x: 1824, y: 1832 },
-        center: { row: 16, column: 16, zoom: 5 },
+        center: { row: 4, column: 4, zoom: 5 },
         scale: 4
     };
     it('should return a tiles object with correct coords', function(done) {
