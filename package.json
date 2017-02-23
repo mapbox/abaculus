@@ -14,7 +14,7 @@
     "url": "git@github.com:mapbox/abaculus.git"
   },
   "dependencies": {
-    "sphericalmercator": "1.0.x",
+    "@mapbox/sphericalmercator": "1.0.x",
     "mapnik": "~3.5.0",
     "d3-queue": "^2.0.2"
   },
