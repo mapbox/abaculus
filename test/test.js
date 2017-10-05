@@ -144,7 +144,27 @@ describe('create list of tile coordinates', function() {
         var coords = printer.tileList(zoom, scale, center);
         assert.deepEqual(JSON.stringify(coords), JSON.stringify(expectedCoords));
     });
+    it('should avoid extranious images', function() {
+        var zoom = 11,
+            scale = 1,
+            width = 256,
+            height = 256,
+            center = { w: width, h: height, x: 118912, y: 214912 };
 
+        var expectedCoords = {
+            tiles: [
+                { z: 11, x: 464, y: 839, px: 0, py: 0},
+                // {z: 11, x: 464, y: 840, px: 0, py: 256 },
+                // { z: 11, x: 465, y: 839, px: 256, py: 0 },
+                // { z: 11, x: 465, y: 840, px: 256, py: 256 }
+            ],
+            dimensions: {x: width, y: height},
+            center: { row: 839, column: 464, zoom: 11 },
+            scale: scale
+        };
+        var coords = printer.tileList(zoom, scale, center);
+        assert.deepEqual(JSON.stringify(coords), JSON.stringify(expectedCoords));
+    });
     it('should return a tiles object with correct coords when image is much bigger than world', function() {
         var zoom = 1,
             scale = 1,
