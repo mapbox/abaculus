@@ -14,11 +14,11 @@
     "url": "git@github.com:mapbox/abaculus.git"
   },
   "dependencies": {
-    "@mapbox/sphericalmercator": "1.0.x",
-    "mapnik": "~3.7.0",
+    "@mapbox/sphericalmercator": "^1.0.5",
+    "mapnik": "^4.2.1",
     "d3-queue": "^2.0.2"
   },
   "devDependencies": {
-    "mocha": "2.x"
+    "mocha": "^2.0.0"
   }
 }

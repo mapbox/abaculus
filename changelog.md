@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# [Working]
+
+* Updates to mapnik 4.2.1
+* Testing node.js versions 8, 10 (LTS versions, 11 failing)
+
 # v3.0.0
 
 * Updates to mapnik 3.7.0
