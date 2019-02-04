@@ -4,6 +4,8 @@
 
 * Updates to mapnik 4.2.1
 * Testing node.js versions 8, 10 (LTS versions, 11 failing)
+* Cleanup - Removed Appveyor scripts since Windows support was dropped
+* Updated testing library, Mocha to latest version.
 
 # v3.0.0
 
