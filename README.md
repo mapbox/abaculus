@@ -8,7 +8,6 @@ Uses node-mapnik to stitch tiles together.
 
 [![Build Status](https://travis-ci.org/mapbox/abaculus.svg?branch=master)](https://travis-ci.org/mapbox/abaculus)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/k5e2v42uhbda1ihx)](https://ci.appveyor.com/project/Mapbox/abaculus)
 
 Looking to create high res images of maps? Abaculus was written for use in [Mapbox Studio](http://github.com/mapbox/mapbox-studio) and you can use Mapbox Studio to create and export high resolution images -- see [https://www.mapbox.com/guides/print/](https://www.mapbox.com/guides/print/) for more information. You can even use [that utility from the command line](https://github.com/mapbox/mapbox-studio/issues/1024#issuecomment-63535433).
 
