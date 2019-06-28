@@ -1,6 +1,6 @@
 # CHANGELOG
 
-# v3.0.1
+# v3.1.0
 
 * Update mocha to 6.x
 * Update mapnik to 4.2.1
