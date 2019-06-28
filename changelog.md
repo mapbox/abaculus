@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# v3.0.1
+
+* Update mocha to 6.x
+* Update mapnik to 4.2.1
+* Update d3-queue to 3.0.7
+* Add travis builds for node 6,8,10 latest lte releases
+
+
 # v3.0.0
 
 * Updates to mapnik 3.7.0
