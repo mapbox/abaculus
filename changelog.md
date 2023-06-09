@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v3.1.1
+
+Fixes a bug when calculating the center for sizes > 1
+
 # v3.1.0
 
 * Update mocha to 6.x
